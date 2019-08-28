@@ -4,9 +4,11 @@ import nltk
 from nltk import stem
 import glob
 import matplotlib.pyplot as plt
+import os
+import csv
 
 #read datas
-files = sorted(glob.glob('./data/*.txt'))
+files = sorted(glob.glob('./input/*.txt'))
 data_list = []
 for file in files:
     with open(file) as f:
@@ -24,20 +26,10 @@ for data in data_list:
         lem_word_list.append(lem_word)
     lem_word_lists.append(lem_word_list)
 
-# counting : 要素と出現回数の組み合わせのオブジェクトを返す
-for lem_list in lem_word_lists:
-    counter = collections.Counter(lem_list)
-    word_num = counter.most_common()
-    print(word_num)
-
-    #plot
-    x = [word_num[:50][i][0] for i in range(0,50)]
-    y = [word_num[:50][i][1] for i in range(0,50)]
-
-    plt.figure(figsize=(10,5))
-    plt.bar(x, y)
-    plt.xticks(rotation=90)
-    plt.title('Couting Words')
-    plt.xlabel('Word')
-    plt.ylabel('Number')
-    plt.show()
+# counting & output
+with open('./output/outputs.csv', 'w') as f:
+    for lem_list in lem_word_lists:
+        counter = collections.Counter(lem_list)
+        word_sum = counter.most_common()
+        writer = csv.writer(f, lineterminator='\n')
+        writer.writerows(word_sum[:50])
