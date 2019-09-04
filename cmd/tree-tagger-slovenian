@@ -1,0 +1,16 @@
+#!/bin/sh
+
+# Set these paths appropriately
+
+BIN="/Users/kohei/Downloads/bin"
+CMD="/Users/kohei/Downloads/cmd"
+LIB="/Users/kohei/Downloads/lib"
+
+OPTIONS="-token -lemma -sgml"
+
+TAGGER=${BIN}/tree-tagger
+TOKENIZER=${CMD}/utf8-tokenize.perl
+PARFILE=${LIB}/slovenian.par
+
+$TOKENIZER $* |
+$TAGGER $OPTIONS $PARFILE

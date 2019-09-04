@@ -1,0 +1,17 @@
+#!/bin/sh
+
+# Set these paths appropriately
+
+BIN="/Users/kohei/Downloads/bin"
+CMD="/Users/kohei/Downloads/cmd"
+LIB="/Users/kohei/Downloads/lib"
+
+OPTIONS="-token -lemma -sgml"
+
+TAGGER=${BIN}/tree-tagger
+TOKENIZER=${CMD}/utf8-tokenize.perl
+ABBR_LIST=${LIB}/dutch-abbreviations
+PARFILE=${LIB}/dutch.par
+
+$TOKENIZER -a $ABBR_LIST $* |
+$TAGGER $OPTIONS $PARFILE
