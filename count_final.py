@@ -22,7 +22,7 @@ concat = concat.replace(',','')
 concat = concat.replace('.','')
 
 #treetagging
-tagger = ttw.TreeTagger(TAGLANG='en')
+tagger = ttw.TreeTagger(TAGLANG='en',TAGDIR='./')
 tags = tagger.TagText(concat)
 
 l = []
@@ -35,11 +35,11 @@ with open('./output/output.csv', 'w') as f:
     counter = collections.Counter(l)
     word_sum = counter.most_common()
     writer = csv.writer(f, lineterminator='\n')
-    writer.writerows(word_sum[:50])
+    writer.writerows(word_sum)
 
 #plot & output
-x = [word_sum[:50][i][0] for i in range(0,50)]
-y = [word_sum[:50][i][1] for i in range(0,50)]
+x = [word_sum[i][0] for i in range(0,len(word_sum))]
+y = [word_sum[i][1] for i in range(0,len(word_sum))]
 plt.figure(figsize=(10,5))
 plt.bar(x, y)
 plt.xticks(rotation=90)
